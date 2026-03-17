@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNIQ Supply — Design Brief</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-orange:     #EC6C27;
+      --color-romaine:    #0C5F3F;
+      --color-slushy:     #93D3E4;
+      --color-flour:      #F3E5D9;
+      --color-black:      #231F20;
+      --color-gray-mid:   #ADADAD;
+      --color-gray-light: #E3E3E3;
+      --color-bg:         #FBFBFB;
+      --color-white:      #FFFFFF;
+      --color-primary:    #0C5F3F;
+      --color-accent:     #EC6C27;
+      --color-error:      #C0392B;
+      --font:             'Figtree', sans-serif;
+      --space-xs:  0.25rem;
+      --space-sm:  0.5rem;
+      --space-md:  1rem;
+      --space-lg:  1.5rem;
+      --space-xl:  2rem;
+      --space-2xl: 3rem;
+      --radius-sm:   6px;
+      --radius-md:   10px;
+      --radius-lg:   16px;
+      --radius-pill: 100px;
+      --shadow-sm: 0 1px 4px rgba(35,31,32,0.06);
+      --transition: 0.15s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--color-bg);
+      color: var(--color-black);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ─── Header ─── */
+    .site-header {
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-gray-light);
+      height: 56px;
+      padding: 0 var(--space-lg);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .site-header img { height: 26px; width: auto; }
+
+    /* ─── Page ─── */
+    .page {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg) var(--space-2xl);
+    }
+
+    /* ─── Hero ─── */
+    .hero-banner {
+      background: var(--color-romaine);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl) 2.5rem;
+      color: var(--color-white);
+      margin: var(--space-lg) 0;
+    }
+
+    .hero-banner h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .hero-banner p  { font-size: 0.88rem; opacity: 0.75; }
+
+    /* ─── Form sections ─── */
+    .form-section {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-left: 3px solid var(--color-orange);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .section-header { margin-bottom: var(--space-lg); }
+
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-gray-mid);
+      margin-bottom: 0.2rem;
+    }
+
+    .section-title { font-size: 1rem; font-weight: 700; }
+
+    /* ─── Fields ─── */
+    .field { margin-bottom: var(--space-md); }
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-black);
+      margin-bottom: 0.35rem;
+    }
+
+    .required-star { color: var(--color-orange); margin-left: 0.15rem; }
+
+    .field-hint {
+      font-size: 0.76rem;
+      color: var(--color-gray-mid);
+      margin-top: 0.3rem;
+      line-height: 1.45;
+    }
+
+    .field-error {
+      font-size: 0.76rem;
+      color: var(--color-error);
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 0.65rem 0.875rem;
+      border: 1.5px solid var(--color-gray-light);
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      color: var(--color-black);
+      background: var(--color-white);
+      transition: border-color var(--transition);
+      -webkit-appearance: none;
+      appearance: none;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--color-orange);
+    }
+
+    input.field-invalid, textarea.field-invalid {
+      border-color: var(--color-error);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--color-gray-light);
+      margin: var(--space-lg) 0;
+    }
+
+    /* ─── Drop zones ─── */
+    .drop-zone {
+      border: 2px dashed var(--color-gray-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl) var(--space-lg);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+      position: relative;
+    }
+
+    .drop-zone:hover, .drop-zone.dragover {
+      border-color: var(--color-orange);
+      background: var(--color-flour);
+    }
+
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-zone-icon { font-size: 1.4rem; display: block; margin-bottom: var(--space-sm); }
+    .drop-zone-text { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .drop-zone-hint { font-size: 0.74rem; color: var(--color-gray-mid); }
+
+    /* ─── File pills ─── */
+    .file-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    .file-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.6rem 0.25rem 0.75rem;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--color-gray-light);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-black);
+      background: var(--color-white);
+      max-width: 240px;
+    }
+
+    .file-pill span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .file-pill.uploading { border-color: var(--color-orange); color: var(--color-gray-mid); }
+    .file-pill.done      { border-color: var(--color-romaine); color: var(--color-romaine); }
+    .file-pill.failed    { border-color: var(--color-error); color: var(--color-error); }
+
+    .pill-remove {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-gray-mid);
+      font-size: 0.85rem;
+      line-height: 1;
+      padding: 0;
+      flex-shrink: 0;
+      transition: color var(--transition);
+    }
+
+    .pill-remove:hover { color: var(--color-error); }
+
+    /* ─── Spinner ─── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .spinner {
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    .spinner--sm {
+      width: 12px;
+      height: 12px;
+      border-color: var(--color-gray-light);
+      border-top-color: var(--color-orange);
+    }
+
+    /* ─── Toggle ─── */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-track {
+      width: 40px;
+      height: 22px;
+      background: var(--color-gray-light);
+      border-radius: var(--radius-pill);
+      transition: background var(--transition);
+      position: relative;
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--color-white);
+      transition: transform var(--transition);
+      box-shadow: 0 1px 3px rgba(35,31,32,0.2);
+    }
+
+    .toggle-switch input:checked ~ .toggle-track { background: var(--color-romaine); }
+    .toggle-switch input:checked ~ .toggle-track .toggle-thumb { transform: translateX(18px); }
+
+    .toggle-label { font-size: 0.88rem; font-weight: 500; cursor: pointer; }
+
+    .barcode-value-field {
+      margin-top: var(--space-md);
+      display: none;
+    }
+
+    .barcode-value-field.visible { display: block; }
+
+    /* ─── Guidance box ─── */
+    .guidance-box {
+      border-radius: var(--radius-sm);
+      padding: 0.875rem 1rem;
+      font-size: 0.83rem;
+      line-height: 1.55;
+      margin-top: var(--space-sm);
+    }
+
+    .guidance-box--orange {
+      background: #FEF3EC;
+      border: 1px solid #F7C9A8;
+      color: #7A3410;
+    }
+
+    /* ─── Error banner ─── */
+    .error-banner {
+      background: #FEF0EE;
+      border: 1px solid #F5C0BB;
+      border-radius: var(--radius-sm);
+      color: var(--color-error);
+      padding: 0.875rem 1rem;
+      font-size: 0.83rem;
+      margin-bottom: var(--space-md);
+      display: none;
+    }
+
+    .error-banner.visible { display: block; }
+
+    /* ─── Submit ─── */
+    .submit-area {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: var(--space-lg);
+    }
+
+    .btn-primary {
+      background: var(--color-romaine);
+      color: var(--color-white);
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary:hover:not(:disabled) { background: #0a4f34; }
+
+    .btn-primary:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* ─── Success state ─── */
+    .success-state {
+      text-align: center;
+      padding: 4rem var(--space-lg);
+      display: none;
+    }
+
+    .success-state.visible { display: block; }
+
+    .success-icon {
+      width: 4rem;
+      height: 4rem;
+      background: var(--color-romaine);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .success-state h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: var(--space-sm); }
+    .success-state p  { color: var(--color-gray-mid); font-size: 0.9rem; max-width: 400px; margin: 0 auto; }
+
+    /* ─── No-deal state ─── */
+    .no-deal-state {
+      text-align: center;
+      padding: 4rem var(--space-lg);
+      display: none;
+    }
+
+    .no-deal-state h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: var(--space-sm); }
+    .no-deal-state p  { color: var(--color-gray-mid); font-size: 0.9rem; max-width: 380px; margin: 0 auto; }
+
+    /* ─── Animation ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-up { animation: fadeUp 0.3s ease both; }
+
+    .form-section:nth-child(1) { animation-delay: 0.05s; }
+    .form-section:nth-child(2) { animation-delay: 0.10s; }
+    .form-section:nth-child(3) { animation-delay: 0.15s; }
+    .form-section:nth-child(4) { animation-delay: 0.20s; }
+    .form-section:nth-child(5) { animation-delay: 0.25s; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 480px) {
+      .page { padding: 0 var(--space-md) var(--space-xl); }
+      .hero-banner { padding: var(--space-lg); }
+      .hero-banner h1 { font-size: 1.3rem; }
+      .form-section { padding: var(--space-md); }
+      .submit-area { justify-content: stretch; }
+      .btn-primary { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <img src="https://uniqsupply.com/cdn/shop/files/uniq-supply-website-logo.png?v=1745983722" alt="UNIQ Supply" />
+  </header>
+
+  <main class="page">
+
+    <div class="hero-banner animate-fade-up" id="heroBanner">
+      <h1>Design Brief</h1>
+      <p>Share your vision and we'll take it from there. Upload your files and tell us what you're imagining.</p>
+    </div>
+
+    <!-- Shown when no ?deal= param in URL -->
+    <div class="no-deal-state" id="noDealState">
+      <h2>Invalid link</h2>
+      <p>This form requires a valid order link. Please use the link sent to you by your UNIQ Supply rep.</p>
+    </div>
+
+    <form id="briefForm" novalidate>
+
+      <div class="error-banner" id="submitError"></div>
+
+      <!-- Step 1: Design Vision -->
+      <div class="form-section animate-fade-up">
+        <div class="section-header">
+          <div class="section-label">Step 1</div>
+          <div class="section-title">Design Vision</div>
+        </div>
+
+        <div class="field">
+          <label for="designDescription">Describe your design<span class="required-star">*</span></label>
+          <textarea id="designDescription" rows="5"
+            placeholder="Tell us what you're going for — style, mood, key elements, layout preferences..."></textarea>
+          <div class="field-hint">Be as specific as you like. The more detail, the better the result.</div>
+          <div class="field-error" id="designDescriptionError">Please describe your design before submitting.</div>
+        </div>
+
+        <div class="field">
+          <label for="referenceInspiration">References &amp; inspiration</label>
+          <textarea id="referenceInspiration" rows="3"
+            placeholder="Links to images, brands, or styles you like — Instagram, Pinterest, websites, anything."></textarea>
+          <div class="field-hint">Optional but very helpful. Paste URLs or describe what you have in mind.</div>
+        </div>
+      </div>
+
+      <!-- Step 2: Colors & Typography -->
+      <div class="form-section animate-fade-up">
+        <div class="section-header">
+          <div class="section-label">Step 2</div>
+          <div class="section-title">Colors &amp; Typography</div>
+        </div>
+
+        <div class="field">
+          <label for="pantoneColors">Colors / Pantone values</label>
+          <input type="text" id="pantoneColors"
+            placeholder="e.g. Pantone 485 C, CMYK 0/91/86/0, or #EC6C27" />
+          <div class="field-hint">Pantone, CMYK, RGB, or HEX — whatever you have. If unsure, describe the color in words.</div>
+          <div class="guidance-box guidance-box--orange">
+            <strong>Tip:</strong> For best print accuracy, Pantone Matching System (PMS) values are ideal. If matching an existing brand color, pull the exact Pantone or CMYK values from your brand guidelines.
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="field">
+          <label for="fontNames">Preferred font(s)</label>
+          <input type="text" id="fontNames"
+            placeholder="e.g. Helvetica Neue, Freight Display, custom brand font" />
+          <div class="field-hint">List fonts you want used. Upload the actual font files below if you have them.</div>
+        </div>
+
+        <div class="field">
+          <label>Font files</label>
+          <div class="drop-zone" id="fontDropZone">
+            <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2" multiple />
+            <span class="drop-zone-icon">🔤</span>
+            <div class="drop-zone-text">Drop font files here or click to browse</div>
+            <div class="drop-zone-hint">Accepted: .ttf, .otf, .woff, .woff2 &nbsp;·&nbsp; Max 50 MB each</div>
+          </div>
+          <div class="file-list" id="fontFileList"></div>
+        </div>
+      </div>
+
+      <!-- Step 3: Design Files -->
+      <div class="form-section animate-fade-up">
+        <div class="section-header">
+          <div class="section-label">Step 3</div>
+          <div class="section-title">Design Files</div>
+        </div>
+
+        <div class="field">
+          <label>Upload your files</label>
+          <div class="drop-zone" id="designDropZone">
+            <input type="file" id="designFileInput" accept=".ai,.eps,.svg,.pdf,.png" multiple />
+            <span class="drop-zone-icon">📁</span>
+            <div class="drop-zone-text">Drop files here or click to browse</div>
+            <div class="drop-zone-hint">Accepted: .ai, .eps, .svg, .pdf, .png &nbsp;·&nbsp; Max 50 MB each</div>
+          </div>
+          <div class="file-list" id="designFileList"></div>
+        </div>
+
+        <div class="field">
+          <label for="fileDescription">Notes about your files</label>
+          <textarea id="fileDescription" rows="2"
+            placeholder="e.g. which file is primary artwork, layer notes, version info..."></textarea>
+        </div>
+      </div>
+
+      <!-- Step 4: Barcodes & QR Codes -->
+      <div class="form-section animate-fade-up">
+        <div class="section-header">
+          <div class="section-label">Step 4</div>
+          <div class="section-title">Barcodes &amp; QR Codes</div>
+        </div>
+
+        <div class="toggle-row">
+          <label class="toggle-switch" for="hasBarcode">
+            <input type="checkbox" id="hasBarcode" />
+            <div class="toggle-track">
+              <div class="toggle-thumb"></div>
+            </div>
+          </label>
+          <span class="toggle-label" onclick="document.getElementById('hasBarcode').click()">
+            My product needs a barcode or QR code
+          </span>
+        </div>
+
+        <div class="barcode-value-field" id="barcodeValueField">
+          <div class="field" style="margin-top: var(--space-md); margin-bottom: 0;">
+            <label for="barcodeValue">Barcode / QR code value</label>
+            <input type="text" id="barcodeValue"
+              placeholder="e.g. 012345678901 or https://yourwebsite.com" />
+            <div class="field-hint">Enter the exact number, URL, or text to encode. Leave blank if you'd like us to source it.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Additional Notes -->
+      <div class="form-section animate-fade-up">
+        <div class="section-header">
+          <div class="section-label">Step 5</div>
+          <div class="section-title">Anything Else?</div>
+        </div>
+
+        <div class="field">
+          <label for="additionalNotes">Additional notes</label>
+          <textarea id="additionalNotes" rows="3"
+            placeholder="Special requests, turnaround preferences, or anything else we should know..."></textarea>
+        </div>
+      </div>
+
+      <div class="submit-area">
+        <button type="submit" class="btn-primary" id="submitBtn">Submit Brief</button>
+      </div>
+
+    </form>
+
+    <!-- Shown on successful submit -->
+    <div class="success-state" id="successState">
+      <div class="success-icon">✓</div>
+      <h2>Brief submitted!</h2>
+      <p>We've received your design brief and will be in touch soon. Keep an eye on your inbox.</p>
+    </div>
+
+  </main>
+
+  <script>
+    // ─── Deal ID from URL ──────────────────────────────────────────────────────
+    const params = new URLSearchParams(window.location.search);
+    const dealId = params.get('deal');
+
+    if (!dealId) {
+      document.getElementById('heroBanner').style.display = 'none';
+      document.getElementById('briefForm').style.display  = 'none';
+      document.getElementById('noDealState').style.display = 'block';
+    }
+
+    // ─── Uploaded file tracking ────────────────────────────────────────────────
+    const uploaded = { design: [], font: [] };
+
+    // ─── File upload helpers ───────────────────────────────────────────────────
+    function setupDropZone(zoneId, inputId, listId, category) {
+      const zone  = document.getElementById(zoneId);
+      const input = document.getElementById(inputId);
+      const list  = document.getElementById(listId);
+
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('dragover');
+      });
+      zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        uploadFiles(e.dataTransfer.files, list, category);
+      });
+
+      input.addEventListener('change', () => {
+        uploadFiles(input.files, list, category);
+        input.value = '';
+      });
+    }
+
+    function uploadFiles(fileList, listEl, category) {
+      Array.from(fileList).forEach((file) => uploadOne(file, listEl, category));
+    }
+
+    async function uploadOne(file, listEl, category) {
+      // Create pill in uploading state
+      const pill = document.createElement('div');
+      pill.className = 'file-pill uploading';
+      pill.innerHTML = `
+        <div class="spinner spinner--sm"></div>
+        <span title="${file.name}">${file.name}</span>
+      `;
+      listEl.appendChild(pill);
+
+      const body = new FormData();
+      body.append('files', file);
+
+      try {
+        const res  = await fetch('/upload', { method: 'POST', body });
+        const data = await res.json();
+
+        if (!res.ok || !data.files?.[0]) throw new Error(data.error || 'Upload failed');
+
+        const { name, url } = data.files[0];
+        uploaded[category].push({ name, url });
+
+        pill.className = 'file-pill done';
+        pill.innerHTML = `
+          <span title="${name}">✓ ${name}</span>
+          <button class="pill-remove" type="button" title="Remove">✕</button>
+        `;
+        pill.querySelector('.pill-remove').addEventListener('click', () => {
+          uploaded[category] = uploaded[category].filter((f) => f.url !== url);
+          pill.remove();
+        });
+
+      } catch {
+        pill.className = 'file-pill failed';
+        pill.innerHTML = `
+          <span title="${file.name}">Failed: ${file.name}</span>
+          <button class="pill-remove" type="button" title="Dismiss">✕</button>
+        `;
+        pill.querySelector('.pill-remove').addEventListener('click', () => pill.remove());
+      }
+    }
+
+    setupDropZone('designDropZone', 'designFileInput', 'designFileList', 'design');
+    setupDropZone('fontDropZone',   'fontFileInput',   'fontFileList',   'font');
+
+    // ─── Barcode toggle ────────────────────────────────────────────────────────
+    document.getElementById('hasBarcode').addEventListener('change', function () {
+      document.getElementById('barcodeValueField').classList.toggle('visible', this.checked);
+    });
+
+    // ─── Form submission ───────────────────────────────────────────────────────
+    document.getElementById('briefForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const descEl    = document.getElementById('designDescription');
+      const descValue = descEl.value.trim();
+      const descError = document.getElementById('designDescriptionError');
+      const errBanner = document.getElementById('submitError');
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Validate required field
+      if (!descValue) {
+        descEl.classList.add('field-invalid');
+        descError.style.display = 'block';
+        descEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      descEl.classList.remove('field-invalid');
+      descError.style.display = 'none';
+      errBanner.classList.remove('visible');
+
+      // Disable submit
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<div class="spinner"></div> Submitting…`;
+
+      const payload = {
+        dealId,
+        designDescription:    descValue,
+        referenceInspiration: document.getElementById('referenceInspiration').value.trim(),
+        pantoneColors:        document.getElementById('pantoneColors').value.trim(),
+        fontNames:            document.getElementById('fontNames').value.trim(),
+        fontFileUrls:         uploaded.font.map((f) => f.url),
+        designFileUrls:       uploaded.design.map((f) => f.url),
+        fileDescription:      document.getElementById('fileDescription').value.trim(),
+        hasBarcode:           document.getElementById('hasBarcode').checked,
+        barcodeValue:         document.getElementById('barcodeValue').value.trim(),
+        additionalNotes:      document.getElementById('additionalNotes').value.trim(),
+      };
+
+      try {
+        const res  = await fetch('/submit', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || 'Submission failed. Please try again.');
+
+        // Show success
+        document.getElementById('briefForm').style.display  = 'none';
+        document.getElementById('heroBanner').style.display = 'none';
+        document.getElementById('successState').classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (err) {
+        errBanner.textContent = err.message;
+        errBanner.classList.add('visible');
+        errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Submit Brief';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Environment variables — never commit real tokens
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+
+# Logs
+npm-debug.log*
+nodemon-debug.log*
+*.log
+
+# Editor
+.vscode/
+.idea/
