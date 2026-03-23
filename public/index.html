@@ -543,7 +543,7 @@
 <body>
 
   <header class="site-header">
-    <img src="https://uniqsupply.com/cdn/shop/files/uniq-supply-website-logo.png?v=1745983722" alt="UNIQ Supply" />
+    <img id="siteLogo" src="https://uniqsupply.com/cdn/shop/files/uniq-supply-website-logo.png?v=1745983722" alt="UNIQ Supply" />
   </header>
 
   <main class="page">
@@ -557,7 +557,7 @@
     <!-- Shown when no ?deal= param in URL -->
     <div class="no-deal-state" id="noDealState">
       <h2>Invalid link</h2>
-      <p>This form requires a valid order link. Please use the link sent to you by your UNIQ Supply rep.</p>
+      <p id="noDealText">This form requires a valid order link. Please use the link sent to you by your UNIQ Supply rep.</p>
     </div>
 
     <!-- Shown when brief already submitted for this deal -->
@@ -731,13 +731,13 @@
         <button type="submit" form="briefForm" class="btn-primary" id="submitBtn">
           Submit Brief
         </button>
-        <p class="submit-disclaimer">By submitting, you confirm that you have the rights to all uploaded files and agree to UNIQ Supply's creative services terms.</p>
+        <p class="submit-disclaimer" id="submitDisclaimer">By submitting, you confirm that you have the rights to all uploaded files and agree to UNIQ Supply's creative services terms.</p>
 
         <!-- Need Help? -->
         <div class="sidebar-card">
           <div class="summary-label">Need help?</div>
-          <p class="help-text">Reach out to your UNIQ Supply rep directly — they're happy to walk you through the brief or fill it out with you.</p>
-          <a href="mailto:hello@uniqsupply.com" class="help-link">hello@uniqsupply.com</a>
+          <p class="help-text" id="helpRepLabel">Reach out to your UNIQ Supply rep directly — they're happy to walk you through the brief or fill it out with you.</p>
+          <a href="mailto:hello@uniqsupply.com" class="help-link" id="helpEmail">hello@uniqsupply.com</a>
         </div>
 
       </div>
@@ -756,6 +756,44 @@
   </main>
 
   <script>
+    // ─── Brand themes ──────────────────────────────────────────────────────────
+    const THEMES = {
+      'UNIQ Supply': {
+        primary: '#0C5F3F', accent: '#EC6C27', tint: '#F3E5D9',
+        logo: 'https://uniqsupply.com/cdn/shop/files/uniq-supply-website-logo.png?v=1745983722',
+        name: 'UNIQ Supply', email: 'hello@uniqsupply.com', repLabel: 'UNIQ Supply rep',
+      },
+      'Frozen Dessert Supplies': {
+        primary: '#047680', accent: '#25bfcc', tint: '#e3fdff',
+        logo: '/logos/fds-logo.png',
+        name: 'Frozen Dessert Supplies', email: 'hello@frozendessert.com', repLabel: 'Frozen Dessert Supplies rep',
+      },
+      'Hot Cup Factory': {
+        primary: '#BC5713', accent: '#FD822C', tint: '#FFCCA9',
+        logo: '/logos/hcf-logo.png',
+        name: 'Hot Cup Factory', email: 'hello@hotcupfactory.com', repLabel: 'Hot Cup Factory rep',
+      },
+    };
+
+    function applyTheme(storefront) {
+      const theme = THEMES[storefront] || THEMES['UNIQ Supply'];
+      const r = document.documentElement;
+      r.style.setProperty('--color-romaine', theme.primary);
+      r.style.setProperty('--color-orange',  theme.accent);
+      r.style.setProperty('--color-flour',   theme.tint);
+      document.getElementById('siteLogo').src           = theme.logo;
+      document.getElementById('siteLogo').alt           = theme.name;
+      document.title                                    = `${theme.name} — Design Brief`;
+      document.getElementById('helpEmail').href         = `mailto:${theme.email}`;
+      document.getElementById('helpEmail').textContent  = theme.email;
+      document.getElementById('helpRepLabel').textContent   = `Reach out to your ${theme.repLabel} directly — they're happy to walk you through the brief or fill it out with you.`;
+      document.getElementById('submitDisclaimer').textContent = `By submitting, you confirm that you have the rights to all uploaded files and agree to ${theme.name}'s creative services terms.`;
+      document.getElementById('noDealText').textContent = `This form requires a valid order link. Please use the link sent to you by your ${theme.repLabel}.`;
+    }
+
+    // Apply default theme immediately (covers no-deal state before data loads)
+    applyTheme(null);
+
     // ─── Deal ID from URL ──────────────────────────────────────────────────────
     const params = new URLSearchParams(window.location.search);
     const dealId = params.get('deal');
@@ -786,6 +824,9 @@
           document.getElementById('alreadySubmittedState').style.display = 'block';
           return;
         }
+
+        // Apply brand theme from deal storefront
+        applyTheme(data.storefront);
 
         // Build cup string e.g. "16oz Hot Cup"
         const cup = [data.cupSize, data.cupType].filter(Boolean).join(' ') || null;

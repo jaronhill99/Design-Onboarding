@@ -84,7 +84,7 @@ async function createNote(dealId, ticketId, bodyHtml) {
 async function getDeal(dealId) {
   const props = [
     'dealname', 'cup_type', 'cup_size', 'quantity',
-    'hubspot_owner_id', 'design_brief_submitted',
+    'hubspot_owner_id', 'design_brief_submitted', 'storefront',
   ].join(',');
   const { data } = await hs.get(`/crm/v3/objects/deals/${dealId}?properties=${props}`);
 
@@ -104,6 +104,7 @@ async function getDeal(dealId) {
     cupSize:          data.properties.cup_size               || null,
     quantity:         data.properties.quantity               || null,
     repName,
+    storefront:       data.properties.storefront             || null,
     alreadySubmitted: data.properties.design_brief_submitted === 'true',
   };
 }
