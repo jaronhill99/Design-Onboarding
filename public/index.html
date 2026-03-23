@@ -390,6 +390,40 @@
       color: #7A3410;
     }
 
+    .guidance-box--romaine {
+      background: #EAF3EE;
+      border: 1px solid #A8D0BA;
+      color: #0C5F3F;
+    }
+
+    /* ─── Submit disclaimer ─── */
+    .submit-disclaimer {
+      font-size: 0.72rem;
+      color: var(--color-gray-mid);
+      text-align: center;
+      line-height: 1.5;
+      margin-top: var(--space-sm);
+    }
+
+    /* ─── Need help card ─── */
+    .help-text {
+      font-size: 0.82rem;
+      color: var(--color-gray-mid);
+      line-height: 1.5;
+      margin-bottom: var(--space-sm);
+    }
+
+    .help-link {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-romaine);
+      text-decoration: none;
+    }
+
+    .help-link:hover {
+      text-decoration: underline;
+    }
+
     /* ─── Error banner ─── */
     .error-banner {
       background: #FEF0EE;
@@ -546,7 +580,7 @@
           <div class="form-section animate-fade-up">
             <div class="section-header">
               <div class="section-label">Step 1</div>
-              <div class="section-title">Design Files</div>
+              <div class="section-title">📁 Design Files</div>
             </div>
 
             <div class="field">
@@ -558,6 +592,11 @@
                 <div class="drop-zone-hint">Accepted: .ai, .eps, .svg, .pdf, .png, .jpg &nbsp;·&nbsp; Max 50 MB each</div>
               </div>
               <div class="file-list" id="designFileList"></div>
+              <div class="guidance-box guidance-box--romaine" style="margin-top: var(--space-sm);">
+                <strong>Best:</strong> Vector files (.ai, .eps, .svg) — scalable to any size, sharpest print results.<br>
+                <strong>Good:</strong> High-res PDF or PNG at 300dpi or higher — works well if no vector is available.<br>
+                <strong>Avoid:</strong> Screenshots, low-res JPGs, or files exported from Canva or Word.
+              </div>
             </div>
 
             <div class="field">
@@ -571,7 +610,7 @@
           <div class="form-section animate-fade-up">
             <div class="section-header">
               <div class="section-label">Step 2</div>
-              <div class="section-title">Design Vision</div>
+              <div class="section-title">💡 Design Vision</div>
             </div>
 
             <div class="field">
@@ -594,7 +633,7 @@
           <div class="form-section animate-fade-up">
             <div class="section-header">
               <div class="section-label">Step 3</div>
-              <div class="section-title">Colors &amp; Typography</div>
+              <div class="section-title">🎨 Colors &amp; Typography</div>
             </div>
 
             <div class="field">
@@ -625,6 +664,9 @@
                 <div class="drop-zone-hint">Accepted: .ttf, .otf, .woff, .woff2 &nbsp;·&nbsp; Max 50 MB each</div>
               </div>
               <div class="file-list" id="fontFileList"></div>
+              <div class="guidance-box guidance-box--orange" style="margin-top: var(--space-sm);">
+                Upload the actual font files if your brand uses a custom or paid font. If it's a Google Font or a common free font, just typing the name above is fine.
+              </div>
             </div>
           </div>
 
@@ -689,6 +731,14 @@
         <button type="submit" form="briefForm" class="btn-primary" id="submitBtn">
           Submit Brief
         </button>
+        <p class="submit-disclaimer">By submitting, you confirm that you have the rights to all uploaded files and agree to UNIQ Supply's creative services terms.</p>
+
+        <!-- Need Help? -->
+        <div class="sidebar-card">
+          <div class="summary-label">Need help?</div>
+          <p class="help-text">Reach out to your UNIQ Supply rep directly — they're happy to walk you through the brief or fill it out with you.</p>
+          <a href="mailto:hello@uniqsupply.com" class="help-link">hello@uniqsupply.com</a>
+        </div>
 
       </div>
       <!-- /sidebar -->
