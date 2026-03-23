@@ -11,15 +11,12 @@
     :root {
       --color-orange:     #EC6C27;
       --color-romaine:    #0C5F3F;
-      --color-slushy:     #93D3E4;
       --color-flour:      #F3E5D9;
       --color-black:      #231F20;
       --color-gray-mid:   #ADADAD;
       --color-gray-light: #E3E3E3;
       --color-bg:         #FBFBFB;
       --color-white:      #FFFFFF;
-      --color-primary:    #0C5F3F;
-      --color-accent:     #EC6C27;
       --color-error:      #C0392B;
       --font:             'Figtree', sans-serif;
       --space-xs:  0.25rem;
@@ -81,6 +78,124 @@
     .hero-banner h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.25rem; }
     .hero-banner p  { font-size: 0.88rem; opacity: 0.75; }
 
+    /* ─── Two-column layout ─── */
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    /* ─── Form column ─── */
+    .form-col { min-width: 0; }
+
+    /* ─── Sidebar ─── */
+    .sidebar {
+      position: sticky;
+      top: calc(56px + var(--space-lg));
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .sidebar-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ─── Order summary ─── */
+    .summary-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-gray-mid);
+      margin-bottom: var(--space-md);
+    }
+
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .summary-table tr + tr td { padding-top: 0.6rem; }
+
+    .summary-table td:first-child {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-gray-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      width: 36%;
+      padding-right: var(--space-sm);
+      vertical-align: top;
+    }
+
+    .summary-table td:last-child {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-black);
+    }
+
+    /* Skeleton loading shimmer */
+    @keyframes shimmer {
+      from { background-position: -200% 0; }
+      to   { background-position:  200% 0; }
+    }
+
+    .skeleton {
+      display: inline-block;
+      height: 0.88rem;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--color-gray-light) 25%, #ececec 50%, var(--color-gray-light) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    .skeleton--sm  { width: 60px; }
+    .skeleton--md  { width: 100px; }
+    .skeleton--lg  { width: 130px; }
+
+    /* ─── What happens next ─── */
+    .next-steps { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .next-step {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .next-step-number {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      background: var(--color-romaine);
+      color: var(--color-white);
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .next-step-text strong {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .next-step-text span {
+      font-size: 0.76rem;
+      color: var(--color-gray-mid);
+      line-height: 1.4;
+    }
+
     /* ─── Form sections ─── */
     .form-section {
       background: var(--color-white);
@@ -134,6 +249,7 @@
     }
 
     input[type="text"],
+    input[type="email"],
     textarea {
       width: 100%;
       padding: 0.65rem 0.875rem;
@@ -243,9 +359,9 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .spinner {
-      width: 12px;
-      height: 12px;
-      border: 2px solid rgba(255,255,255,0.3);
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.35);
       border-top-color: currentColor;
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
@@ -258,61 +374,6 @@
       border-color: var(--color-gray-light);
       border-top-color: var(--color-orange);
     }
-
-    /* ─── Toggle ─── */
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      gap: var(--space-md);
-    }
-
-    .toggle-switch {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .toggle-switch input {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .toggle-track {
-      width: 40px;
-      height: 22px;
-      background: var(--color-gray-light);
-      border-radius: var(--radius-pill);
-      transition: background var(--transition);
-      position: relative;
-    }
-
-    .toggle-thumb {
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--color-white);
-      transition: transform var(--transition);
-      box-shadow: 0 1px 3px rgba(35,31,32,0.2);
-    }
-
-    .toggle-switch input:checked ~ .toggle-track { background: var(--color-romaine); }
-    .toggle-switch input:checked ~ .toggle-track .toggle-thumb { transform: translateX(18px); }
-
-    .toggle-label { font-size: 0.88rem; font-weight: 500; cursor: pointer; }
-
-    .barcode-value-field {
-      margin-top: var(--space-md);
-      display: none;
-    }
-
-    .barcode-value-field.visible { display: block; }
 
     /* ─── Guidance box ─── */
     .guidance-box {
@@ -343,18 +404,12 @@
 
     .error-banner.visible { display: block; }
 
-    /* ─── Submit ─── */
-    .submit-area {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: var(--space-lg);
-    }
-
+    /* ─── Buttons ─── */
     .btn-primary {
       background: var(--color-romaine);
       color: var(--color-white);
       border: none;
-      padding: 0.75rem 2rem;
+      padding: 0.75rem 1.5rem;
       border-radius: var(--radius-sm);
       font-family: var(--font);
       font-size: 0.9rem;
@@ -363,7 +418,9 @@
       transition: background var(--transition);
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
+      width: 100%;
     }
 
     .btn-primary:hover:not(:disabled) { background: #0a4f34; }
@@ -408,6 +465,16 @@
     .no-deal-state h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: var(--space-sm); }
     .no-deal-state p  { color: var(--color-gray-mid); font-size: 0.9rem; max-width: 380px; margin: 0 auto; }
 
+    /* ─── Already-submitted state ─── */
+    .already-submitted-state {
+      text-align: center;
+      padding: 4rem var(--space-lg);
+      display: none;
+    }
+
+    .already-submitted-state h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: var(--space-sm); }
+    .already-submitted-state p  { color: var(--color-gray-mid); font-size: 0.9rem; max-width: 400px; margin: 0 auto; }
+
     /* ─── Animation ─── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(10px); }
@@ -416,20 +483,26 @@
 
     .animate-fade-up { animation: fadeUp 0.3s ease both; }
 
-    .form-section:nth-child(1) { animation-delay: 0.05s; }
-    .form-section:nth-child(2) { animation-delay: 0.10s; }
-    .form-section:nth-child(3) { animation-delay: 0.15s; }
-    .form-section:nth-child(4) { animation-delay: 0.20s; }
-    .form-section:nth-child(5) { animation-delay: 0.25s; }
+    .form-section:nth-child(2) { animation-delay: 0.05s; }
+    .form-section:nth-child(3) { animation-delay: 0.10s; }
+    .form-section:nth-child(4) { animation-delay: 0.15s; }
 
     /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        order: -1; /* sidebar above form on tablet/mobile */
+      }
+    }
+
     @media (max-width: 480px) {
       .page { padding: 0 var(--space-md) var(--space-xl); }
       .hero-banner { padding: var(--space-lg); }
       .hero-banner h1 { font-size: 1.3rem; }
       .form-section { padding: var(--space-md); }
-      .submit-area { justify-content: stretch; }
-      .btn-primary { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -441,6 +514,7 @@
 
   <main class="page">
 
+    <!-- Hero -->
     <div class="hero-banner animate-fade-up" id="heroBanner">
       <h1>Design Brief</h1>
       <p>Share your vision and we'll take it from there. Upload your files and tell us what you're imagining.</p>
@@ -452,146 +526,177 @@
       <p>This form requires a valid order link. Please use the link sent to you by your UNIQ Supply rep.</p>
     </div>
 
-    <form id="briefForm" novalidate>
+    <!-- Shown when brief already submitted for this deal -->
+    <div class="already-submitted-state" id="alreadySubmittedState">
+      <div class="success-icon">✓</div>
+      <h2>Already submitted</h2>
+      <p>A design brief has already been submitted for this order. Your rep will be in touch shortly. If you think this is an error, please reach out to your UNIQ Supply rep.</p>
+    </div>
 
-      <div class="error-banner" id="submitError"></div>
+    <!-- Two-column layout -->
+    <div class="layout" id="mainLayout">
 
-      <!-- Step 1: Design Vision -->
-      <div class="form-section animate-fade-up">
-        <div class="section-header">
-          <div class="section-label">Step 1</div>
-          <div class="section-title">Design Vision</div>
-        </div>
+      <!-- ── Left: Form ── -->
+      <div class="form-col">
+        <form id="briefForm" novalidate>
 
-        <div class="field">
-          <label for="designDescription">Describe your design<span class="required-star">*</span></label>
-          <textarea id="designDescription" rows="5"
-            placeholder="Tell us what you're going for — style, mood, key elements, layout preferences..."></textarea>
-          <div class="field-hint">Be as specific as you like. The more detail, the better the result.</div>
-          <div class="field-error" id="designDescriptionError">Please describe your design before submitting.</div>
-        </div>
+          <div class="error-banner" id="submitError"></div>
 
-        <div class="field">
-          <label for="referenceInspiration">References &amp; inspiration</label>
-          <textarea id="referenceInspiration" rows="3"
-            placeholder="Links to images, brands, or styles you like — Instagram, Pinterest, websites, anything."></textarea>
-          <div class="field-hint">Optional but very helpful. Paste URLs or describe what you have in mind.</div>
-        </div>
-      </div>
-
-      <!-- Step 2: Colors & Typography -->
-      <div class="form-section animate-fade-up">
-        <div class="section-header">
-          <div class="section-label">Step 2</div>
-          <div class="section-title">Colors &amp; Typography</div>
-        </div>
-
-        <div class="field">
-          <label for="pantoneColors">Colors / Pantone values</label>
-          <input type="text" id="pantoneColors"
-            placeholder="e.g. Pantone 485 C, CMYK 0/91/86/0, or #EC6C27" />
-          <div class="field-hint">Pantone, CMYK, RGB, or HEX — whatever you have. If unsure, describe the color in words.</div>
-          <div class="guidance-box guidance-box--orange">
-            <strong>Tip:</strong> For best print accuracy, Pantone Matching System (PMS) values are ideal. If matching an existing brand color, pull the exact Pantone or CMYK values from your brand guidelines.
-          </div>
-        </div>
-
-        <hr />
-
-        <div class="field">
-          <label for="fontNames">Preferred font(s)</label>
-          <input type="text" id="fontNames"
-            placeholder="e.g. Helvetica Neue, Freight Display, custom brand font" />
-          <div class="field-hint">List fonts you want used. Upload the actual font files below if you have them.</div>
-        </div>
-
-        <div class="field">
-          <label>Font files</label>
-          <div class="drop-zone" id="fontDropZone">
-            <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2" multiple />
-            <span class="drop-zone-icon">🔤</span>
-            <div class="drop-zone-text">Drop font files here or click to browse</div>
-            <div class="drop-zone-hint">Accepted: .ttf, .otf, .woff, .woff2 &nbsp;·&nbsp; Max 50 MB each</div>
-          </div>
-          <div class="file-list" id="fontFileList"></div>
-        </div>
-      </div>
-
-      <!-- Step 3: Design Files -->
-      <div class="form-section animate-fade-up">
-        <div class="section-header">
-          <div class="section-label">Step 3</div>
-          <div class="section-title">Design Files</div>
-        </div>
-
-        <div class="field">
-          <label>Upload your files</label>
-          <div class="drop-zone" id="designDropZone">
-            <input type="file" id="designFileInput" accept=".ai,.eps,.svg,.pdf,.png" multiple />
-            <span class="drop-zone-icon">📁</span>
-            <div class="drop-zone-text">Drop files here or click to browse</div>
-            <div class="drop-zone-hint">Accepted: .ai, .eps, .svg, .pdf, .png &nbsp;·&nbsp; Max 50 MB each</div>
-          </div>
-          <div class="file-list" id="designFileList"></div>
-        </div>
-
-        <div class="field">
-          <label for="fileDescription">Notes about your files</label>
-          <textarea id="fileDescription" rows="2"
-            placeholder="e.g. which file is primary artwork, layer notes, version info..."></textarea>
-        </div>
-      </div>
-
-      <!-- Step 4: Barcodes & QR Codes -->
-      <div class="form-section animate-fade-up">
-        <div class="section-header">
-          <div class="section-label">Step 4</div>
-          <div class="section-title">Barcodes &amp; QR Codes</div>
-        </div>
-
-        <div class="toggle-row">
-          <label class="toggle-switch" for="hasBarcode">
-            <input type="checkbox" id="hasBarcode" />
-            <div class="toggle-track">
-              <div class="toggle-thumb"></div>
+          <!-- Step 1: Design Files -->
+          <div class="form-section animate-fade-up">
+            <div class="section-header">
+              <div class="section-label">Step 1</div>
+              <div class="section-title">Design Files</div>
             </div>
-          </label>
-          <span class="toggle-label" onclick="document.getElementById('hasBarcode').click()">
-            My product needs a barcode or QR code
-          </span>
+
+            <div class="field">
+              <label>Upload your files</label>
+              <div class="drop-zone" id="designDropZone">
+                <input type="file" id="designFileInput" accept=".ai,.eps,.svg,.pdf,.png,.jpg,.jpeg" multiple />
+                <span class="drop-zone-icon">📁</span>
+                <div class="drop-zone-text">Drop files here or click to browse</div>
+                <div class="drop-zone-hint">Accepted: .ai, .eps, .svg, .pdf, .png, .jpg &nbsp;·&nbsp; Max 50 MB each</div>
+              </div>
+              <div class="file-list" id="designFileList"></div>
+            </div>
+
+            <div class="field">
+              <label for="fileDescription">Notes about your files</label>
+              <textarea id="fileDescription" rows="2"
+                placeholder="e.g. which file is the primary logo, layer notes, version info..."></textarea>
+            </div>
+          </div>
+
+          <!-- Step 2: Design Vision -->
+          <div class="form-section animate-fade-up">
+            <div class="section-header">
+              <div class="section-label">Step 2</div>
+              <div class="section-title">Design Vision</div>
+            </div>
+
+            <div class="field">
+              <label for="designDescription">Describe your design<span class="required-star">*</span></label>
+              <textarea id="designDescription" rows="5"
+                placeholder="Tell us what you're going for — style, mood, key elements, layout preferences..."></textarea>
+              <div class="field-hint">Be as specific as you like. Include your tagline, website, or social handles if you'd like them on the cup — e.g. <em>"Add our tagline 'Fresh every day', website uniqcafe.com, and @uniqcafe on the sleeve."</em></div>
+              <div class="field-error" id="designDescriptionError">Please describe your design before submitting.</div>
+            </div>
+
+            <div class="field">
+              <label for="referenceInspiration">References &amp; inspiration</label>
+              <textarea id="referenceInspiration" rows="3"
+                placeholder="Links to images, brands, or styles you like — Instagram, Pinterest, websites, anything."></textarea>
+              <div class="field-hint">Optional but very helpful. Paste URLs or describe what you have in mind.</div>
+            </div>
+          </div>
+
+          <!-- Step 3: Colors & Typography -->
+          <div class="form-section animate-fade-up">
+            <div class="section-header">
+              <div class="section-label">Step 3</div>
+              <div class="section-title">Colors &amp; Typography</div>
+            </div>
+
+            <div class="field">
+              <label for="pantoneColors">Colors / Pantone values</label>
+              <input type="text" id="pantoneColors"
+                placeholder="e.g. Pantone 485 C, CMYK 0/91/86/0, or #EC6C27" />
+              <div class="field-hint">Pantone, CMYK, RGB, or HEX — whatever you have. If unsure, describe the color in words.</div>
+              <div class="guidance-box guidance-box--orange">
+                <strong>Tip:</strong> For best print accuracy, Pantone Matching System (PMS) values are ideal. If matching an existing brand color, pull the exact Pantone or CMYK values from your brand guidelines.
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="field">
+              <label for="fontNames">Preferred font(s)</label>
+              <input type="text" id="fontNames"
+                placeholder="e.g. Helvetica Neue, Freight Display, custom brand font" />
+              <div class="field-hint">List fonts you want used. Upload the actual font files below if you have them.</div>
+            </div>
+
+            <div class="field">
+              <label>Font files</label>
+              <div class="drop-zone" id="fontDropZone">
+                <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2" multiple />
+                <span class="drop-zone-icon">🔤</span>
+                <div class="drop-zone-text">Drop font files here or click to browse</div>
+                <div class="drop-zone-hint">Accepted: .ttf, .otf, .woff, .woff2 &nbsp;·&nbsp; Max 50 MB each</div>
+              </div>
+              <div class="file-list" id="fontFileList"></div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- ── Right: Sidebar ── -->
+      <div class="sidebar" id="sidebar">
+
+        <!-- Order Summary -->
+        <div class="sidebar-card">
+          <div class="summary-label">Your Order</div>
+          <table class="summary-table" id="summaryTable">
+            <tr>
+              <td>Brand</td>
+              <td id="sumBrand"><span class="skeleton skeleton--lg"></span></td>
+            </tr>
+            <tr>
+              <td>Cup</td>
+              <td id="sumCup"><span class="skeleton skeleton--md"></span></td>
+            </tr>
+            <tr>
+              <td>Quantity</td>
+              <td id="sumQty"><span class="skeleton skeleton--sm"></span></td>
+            </tr>
+            <tr>
+              <td>Rep</td>
+              <td id="sumRep"><span class="skeleton skeleton--md"></span></td>
+            </tr>
+          </table>
         </div>
 
-        <div class="barcode-value-field" id="barcodeValueField">
-          <div class="field" style="margin-top: var(--space-md); margin-bottom: 0;">
-            <label for="barcodeValue">Barcode / QR code value</label>
-            <input type="text" id="barcodeValue"
-              placeholder="e.g. 012345678901 or https://yourwebsite.com" />
-            <div class="field-hint">Enter the exact number, URL, or text to encode. Leave blank if you'd like us to source it.</div>
+        <!-- What happens next -->
+        <div class="sidebar-card">
+          <div class="summary-label">What happens next</div>
+          <div class="next-steps">
+            <div class="next-step">
+              <div class="next-step-number">1</div>
+              <div class="next-step-text">
+                <strong>Brief reviewed</strong>
+                <span>We go through everything you've sent us.</span>
+              </div>
+            </div>
+            <div class="next-step">
+              <div class="next-step-number">2</div>
+              <div class="next-step-text">
+                <strong>Designer assigned</strong>
+                <span>Your rep assigns a designer within 1 business day.</span>
+              </div>
+            </div>
+            <div class="next-step">
+              <div class="next-step-number">3</div>
+              <div class="next-step-text">
+                <strong>First proof delivered</strong>
+                <span>Expect your first proof within 3–5 business days.</span>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Submit button -->
+        <button type="submit" form="briefForm" class="btn-primary" id="submitBtn">
+          Submit Brief
+        </button>
+
       </div>
+      <!-- /sidebar -->
 
-      <!-- Step 5: Additional Notes -->
-      <div class="form-section animate-fade-up">
-        <div class="section-header">
-          <div class="section-label">Step 5</div>
-          <div class="section-title">Anything Else?</div>
-        </div>
+    </div>
+    <!-- /layout -->
 
-        <div class="field">
-          <label for="additionalNotes">Additional notes</label>
-          <textarea id="additionalNotes" rows="3"
-            placeholder="Special requests, turnaround preferences, or anything else we should know..."></textarea>
-        </div>
-      </div>
-
-      <div class="submit-area">
-        <button type="submit" class="btn-primary" id="submitBtn">Submit Brief</button>
-      </div>
-
-    </form>
-
-    <!-- Shown on successful submit -->
+    <!-- Success state -->
     <div class="success-state" id="successState">
       <div class="success-icon">✓</div>
       <h2>Brief submitted!</h2>
@@ -606,10 +711,49 @@
     const dealId = params.get('deal');
 
     if (!dealId) {
-      document.getElementById('heroBanner').style.display = 'none';
-      document.getElementById('briefForm').style.display  = 'none';
-      document.getElementById('noDealState').style.display = 'block';
+      document.getElementById('heroBanner').style.display   = 'none';
+      document.getElementById('mainLayout').style.display   = 'none';
+      document.getElementById('noDealState').style.display  = 'block';
     }
+
+    // ─── Populate sidebar from /deal/:id ──────────────────────────────────────
+    function setSummaryField(id, value, fallback = '—') {
+      document.getElementById(id).textContent = value || fallback;
+    }
+
+    async function loadDealSummary() {
+      if (!dealId) return;
+      try {
+        const res  = await fetch(`/deal/${dealId}`);
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || 'Not found');
+
+        // If brief already submitted, show that state instead of the form
+        if (data.alreadySubmitted) {
+          document.getElementById('heroBanner').style.display          = 'none';
+          document.getElementById('mainLayout').style.display          = 'none';
+          document.getElementById('alreadySubmittedState').style.display = 'block';
+          return;
+        }
+
+        // Build cup string e.g. "16oz Hot Cup"
+        const cup = [data.cupSize, data.cupType].filter(Boolean).join(' ') || null;
+
+        setSummaryField('sumBrand', data.brandName);
+        setSummaryField('sumCup',   cup);
+        setSummaryField('sumQty',   data.quantity ? Number(data.quantity).toLocaleString() : null);
+        setSummaryField('sumRep',   data.repName);
+
+      } catch {
+        // Graceful fallback — show dashes instead of skeletons
+        ['sumBrand', 'sumCup', 'sumQty', 'sumRep'].forEach((id) => {
+          document.getElementById(id).textContent = '—';
+        });
+      }
+    }
+
+    loadDealSummary();
 
     // ─── Uploaded file tracking ────────────────────────────────────────────────
     const uploaded = { design: [], font: [] };
@@ -642,7 +786,6 @@
     }
 
     async function uploadOne(file, listEl, category) {
-      // Create pill in uploading state
       const pill = document.createElement('div');
       pill.className = 'file-pill uploading';
       pill.innerHTML = `
@@ -686,11 +829,6 @@
     setupDropZone('designDropZone', 'designFileInput', 'designFileList', 'design');
     setupDropZone('fontDropZone',   'fontFileInput',   'fontFileList',   'font');
 
-    // ─── Barcode toggle ────────────────────────────────────────────────────────
-    document.getElementById('hasBarcode').addEventListener('change', function () {
-      document.getElementById('barcodeValueField').classList.toggle('visible', this.checked);
-    });
-
     // ─── Form submission ───────────────────────────────────────────────────────
     document.getElementById('briefForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -701,7 +839,7 @@
       const errBanner = document.getElementById('submitError');
       const submitBtn = document.getElementById('submitBtn');
 
-      // Validate required field
+      // Validate
       if (!descValue) {
         descEl.classList.add('field-invalid');
         descError.style.display = 'block';
@@ -712,23 +850,18 @@
       descEl.classList.remove('field-invalid');
       descError.style.display = 'none';
       errBanner.classList.remove('visible');
-
-      // Disable submit
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<div class="spinner"></div> Submitting…`;
 
       const payload = {
         dealId,
+        designFileUrls:       uploaded.design.map((f) => f.url),
+        fileDescription:      document.getElementById('fileDescription').value.trim(),
         designDescription:    descValue,
         referenceInspiration: document.getElementById('referenceInspiration').value.trim(),
         pantoneColors:        document.getElementById('pantoneColors').value.trim(),
         fontNames:            document.getElementById('fontNames').value.trim(),
         fontFileUrls:         uploaded.font.map((f) => f.url),
-        designFileUrls:       uploaded.design.map((f) => f.url),
-        fileDescription:      document.getElementById('fileDescription').value.trim(),
-        hasBarcode:           document.getElementById('hasBarcode').checked,
-        barcodeValue:         document.getElementById('barcodeValue').value.trim(),
-        additionalNotes:      document.getElementById('additionalNotes').value.trim(),
       };
 
       try {
@@ -741,9 +874,8 @@
 
         if (!res.ok) throw new Error(data.error || 'Submission failed. Please try again.');
 
-        // Show success
-        document.getElementById('briefForm').style.display  = 'none';
-        document.getElementById('heroBanner').style.display = 'none';
+        document.getElementById('mainLayout').style.display  = 'none';
+        document.getElementById('heroBanner').style.display  = 'none';
         document.getElementById('successState').classList.add('visible');
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
